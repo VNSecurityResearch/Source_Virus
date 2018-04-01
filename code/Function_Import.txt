@@ -1,0 +1,197 @@
+﻿CryptDestroyKey                   ADVAPI32
+RegQueryInfoKeyW                  ADVAPI32 Truy lục thông tin về registry key chỉ định
+GetUserNameW                      ADVAPI32 Truy lục người dùng được liên kết với thread hiện tại
+CryptDecrypt                      ADVAPI32
+CryptImportKey                    ADVAPI32
+CryptAcquireContextA              ADVAPI32
+CryptSetKeyParam                  ADVAPI32
+RegSetValueExW                    ADVAPI32
+RegCloseKey                       ADVAPI32
+RegOpenKeyExW                     ADVAPI32
+RegQueryValueExW                  ADVAPI32
+RegQueryValueExA                  ADVAPI32
+0040A030         RegCreateKeyExW                   ADVAPI32
+0040A034         CryptHashData                     ADVAPI32
+0040A038         CryptDestroyHash                  ADVAPI32
+0040A03C         CryptCreateHash                   ADVAPI32
+0040A040         CryptReleaseContext               ADVAPI32
+0040A044         CryptAcquireContextW              ADVAPI32
+0040A048         CryptGetHashParam                 ADVAPI32
+0040A04C         GetLengthSid                      ADVAPI32
+0040A050         GetTokenInformation               ADVAPI32
+0040A054         OpenProcessToken                  ADVAPI32
+0040A058         RegEnumValueW                     ADVAPI32
+0040A05C         RegOpenKeyA                       ADVAPI32
+0040A060         RegDeleteValueW                   ADVAPI32
+0040A068         GetFileSize                       KERNEL32
+0040A06C         WriteFile                         KERNEL32
+0040A070         CreateFileW                       KERNEL32
+0040A074         lstrcpynA                         KERNEL32
+0040A078         GetSystemDirectoryW               KERNEL32
+0040A07C         SetEvent                          KERNEL32
+0040A080         InitializeCriticalSection         KERNEL32
+0040A084         Sleep                             KERNEL32
+0040A088         CreateEventA                      KERNEL32
+0040A08C         InterlockedExchange               KERNEL32
+0040A090         QueueUserAPC                      KERNEL32
+0040A094         QueueUserWorkItem                 KERNEL32
+0040A098         GetCurrentThreadId                KERNEL32
+0040A09C         CreateThread                      KERNEL32
+0040A0A0         ExitProcess                       KERNEL32
+0040A0A4         GetCommandLineW                   KERNEL32
+0040A0A8         GetDriveTypeW                     KERNEL32
+0040A0AC         SetWaitableTimer                  KERNEL32
+0040A0B0         MoveFileExW                       KERNEL32
+0040A0B4         CreateDirectoryW                  KERNEL32
+0040A0B8         SetThreadExecutionState           KERNEL32
+0040A0BC         SleepEx                           KERNEL32
+0040A0C0         GetTickCount                      KERNEL32
+0040A0C4         GetExitCodeProcess                KERNEL32
+0040A0C8         WriteProcessMemory                KERNEL32
+0040A0CC         TerminateProcess                  KERNEL32
+0040A0D0         GetModuleFileNameW                KERNEL32
+0040A0D4         GetCurrentDirectoryW              KERNEL32
+0040A0D8         ResetEvent                        KERNEL32
+0040A0DC         LoadLibraryA                      KERNEL32
+0040A0E0         Process32FirstW                   KERNEL32
+0040A0E4         CreateEventW                      KERNEL32
+0040A0E8         WaitForMultipleObjects            KERNEL32
+0040A0EC         Process32NextW                    KERNEL32
+0040A0F0         lstrcmpiW                         KERNEL32
+0040A0F4         GetWindowsDirectoryW              KERNEL32
+0040A0F8         DeleteFileW                       KERNEL32
+0040A0FC         CreateWaitableTimerA              KERNEL32
+0040A100         lstrcmpA                          KERNEL32
+0040A104         FindFirstFileW                    KERNEL32
+0040A108         InterlockedIncrement              KERNEL32
+0040A10C         InterlockedDecrement              KERNEL32
+0040A110         GetLogicalDriveStringsW           KERNEL32
+0040A114         lstrcmpW                          KERNEL32
+0040A118         FindClose                         KERNEL32
+0040A11C         RemoveDirectoryW                  KERNEL32
+0040A120         FindNextFileW                     KERNEL32
+0040A124         SetFileAttributesW                KERNEL32
+0040A128         GetStartupInfoA                   KERNEL32
+0040A12C         GetCurrentProcessId               KERNEL32
+0040A130         CloseHandle                       KERNEL32
+0040A134         DuplicateHandle                   KERNEL32
+0040A138         CreateToolhelp32Snapshot          KERNEL32
+0040A13C         GetModuleHandleA                  KERNEL32
+0040A140         CreateFileMappingA                KERNEL32
+0040A144         Process32Next                     KERNEL32
+0040A148         VirtualAllocEx                    KERNEL32
+0040A14C         EnterCriticalSection              KERNEL32
+0040A150         GetProcAddress                    KERNEL32
+0040A154         GetSystemDirectoryA               KERNEL32
+0040A158         LeaveCriticalSection              KERNEL32
+0040A15C         TerminateThread                   KERNEL32
+0040A160         OpenProcess                       KERNEL32
+0040A164         CreateRemoteThread                KERNEL32
+0040A168         VirtualFree                       KERNEL32
+0040A16C         WaitForSingleObject               KERNEL32
+0040A170         Process32First                    KERNEL32
+0040A174         UnmapViewOfFile                   KERNEL32
+0040A178         MapViewOfFile                     KERNEL32
+0040A17C         GetVersionExA                     KERNEL32
+0040A180         GetLastError                      KERNEL32
+0040A184         CreateProcessA                    KERNEL32
+0040A188         GetCurrentProcess                 KERNEL32
+0040A18C         CreateProcessW                    KERNEL32
+0040A190         GetVolumeInformationA             KERNEL32
+0040A194         GetComputerNameA                  KERNEL32
+0040A198         WideCharToMultiByte               KERNEL32
+0040A19C         GetComputerNameW                  KERNEL32
+0040A1A0         GetNativeSystemInfo               KERNEL32
+0040A1A4         GetFileAttributesW                KERNEL32
+0040A1AC 6       SysFreeString                     OLEAUT32
+0040A1B0 2       SysAllocString                    OLEAUT32
+0040A1B4 8       VariantInit                       OLEAUT32
+0040A1BC         SetupDiGetDeviceRegistryPropertyA SETUPAPI
+0040A1C0         SetupDiEnumDeviceInfo             SETUPAPI
+0040A1C4         SetupDiGetClassDevsA              SETUPAPI
+0040A1C8         SetupDiDestroyDeviceInfoList      SETUPAPI
+0040A1D0         CommandLineToArgvW                SHELL32 
+0040A1D4         SHGetFolderPathW                  SHELL32 
+0040A1D8         ShellExecuteW                     SHELL32 
+0040A1DC         SHFileOperationW                  SHELL32 
+0040A1E4         StrCmpIW                          SHLWAPI 
+0040A1E8         StrStrIW                          SHLWAPI 
+0040A1EC         StrStrIA                          SHLWAPI 
+0040A1F4         wsprintfW                         USER32  
+0040A1F8         GetSystemMetrics                  USER32  
+0040A1FC         wsprintfA                         USER32  
+0040A204         HttpOpenRequestA                  WININET 
+0040A208         InternetSetOptionA                WININET 
+0040A20C         HttpSendRequestA                  WININET 
+0040A210         InternetConnectA                  WININET 
+0040A214         HttpQueryInfoA                    WININET 
+0040A218         InternetOpenA                     WININET 
+0040A21C         InternetCloseHandle               WININET 
+0040A220         InternetReadFile                  WININET 
+0040A224         InternetQueryOptionA              WININET 
+0040A22C         freeaddrinfo                      WS2_32  
+0040A230 52      gethostbyname                     WS2_32  
+0040A234 115     WSAStartup                        WS2_32  
+0040A238 10      ioctlsocket                       WS2_32  
+0040A23C         WSAIoctl                          WS2_32  
+0040A240 4       connect                           WS2_32  
+0040A244 18      select                            WS2_32  
+0040A248 9       htons                             WS2_32  
+0040A24C 22      shutdown                          WS2_32  
+0040A250 21      setsockopt                        WS2_32  
+0040A254 16      recv                              WS2_32  
+0040A258 23      socket                            WS2_32  
+0040A25C 151     __WSAFDIsSet                      WS2_32  
+0040A260 3       closesocket                       WS2_32  
+0040A264 19      send                              WS2_32  
+0040A268         getaddrinfo                       WS2_32  
+0040A270         _acmdln                           msvcrt  
+0040A274         __getmainargs                     msvcrt  
+0040A278         _initterm                         msvcrt  
+0040A27C         __setusermatherr                  msvcrt  
+0040A280         _adjust_fdiv                      msvcrt  
+0040A284         __p__commode                      msvcrt  
+0040A288         exit                              msvcrt  
+0040A28C         __set_app_type                    msvcrt  
+0040A290         _except_handler3                  msvcrt  
+0040A294         _controlfp                        msvcrt  
+0040A298         atoi                              msvcrt  
+0040A29C         _cexit                            msvcrt  
+0040A2A0         strchr                            msvcrt  
+0040A2A4         _exit                             msvcrt  
+0040A2A8         _c_exit                           msvcrt  
+0040A2AC         strrchr                           msvcrt  
+0040A2B0         _wcsdup                           msvcrt  
+0040A2B4         _time64                           msvcrt  
+0040A2B8         _aligned_malloc                   msvcrt  
+0040A2BC         wcsncmp                           msvcrt  
+0040A2C0         _aligned_free                     msvcrt  
+0040A2C4         srand                             msvcrt  
+0040A2C8         wcsstr                            msvcrt  
+0040A2CC         wcsrchr                           msvcrt  
+0040A2D0         _wcslwr                           msvcrt  
+0040A2D4         wcschr                            msvcrt  
+0040A2D8         __p__fmode                        msvcrt  
+0040A2DC         strncpy                           msvcrt  
+0040A2E0         _strlwr                           msvcrt  
+0040A2E4         realloc                           msvcrt  
+0040A2E8         strtol                            msvcrt  
+0040A2EC         strstr                            msvcrt  
+0040A2F0         sprintf                           msvcrt  
+0040A2F4         rand                              msvcrt  
+0040A2F8         wcsncpy                           msvcrt  
+0040A2FC         calloc                            msvcrt  
+0040A300         free                              msvcrt  
+0040A304         memset                            msvcrt  
+0040A308         _XcptFilter                       msvcrt  
+0040A30C         memcpy                            msvcrt  
+0040A314         ZwQueueApcThread                  ntdll   
+0040A318         ZwMapViewOfSection                ntdll   
+0040A31C         ZwResumeThread                    ntdll   
+0040A324         CoInitializeEx                    ole32   
+0040A328         CoInitializeSecurity              ole32   
+0040A32C         CoUninitialize                    ole32   
+0040A330         CoCreateInstance                  ole32   
+0040A334         StringFromGUID2                   ole32   
+0040A338         CoInitialize                      ole32   
+0040A33C         CoTaskMemFree                     ole32   
